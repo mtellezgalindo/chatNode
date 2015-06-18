@@ -48,7 +48,6 @@ $(function(){
 	socket.on('connect', function(){
 
 		socket.emit('load', id);
-
 	});
 
 	// save the gravatar url
@@ -58,6 +57,7 @@ $(function(){
 
 	// receive the names and avatars of all people in the chat room
 	socket.on('peopleinchat', function(data){
+
 		if(data.number === 0){
 
 			showMessage("connected");

@@ -42,17 +42,19 @@ module.exports = function(app,io){
 
 			var room = findClientsSocket(io,data);
 			if(room.length === 0 ) {
+
 				socket.emit('peopleinchat', {number: 0});
 			}
-			else if(room.length === 2) {
+			else if(room.length === 1) {
+
 				socket.emit('peopleinchat', {
-					number: 2,
+					number: 1,
 					user: room[0].username,
 					avatar: room[0].avatar,
 					id: data
 				});
 			}
-			else if(room.length >= 3) {
+			else if(room.length >= 2) {
 
 				chat.emit('tooMany', {boolean: true});
 			}
@@ -64,7 +66,7 @@ module.exports = function(app,io){
 
 			var room = findClientsSocket(io, data.id);
 			// Only two people per room are allowed
-			if (room.length < 3) {
+			if (room.length < 2) {
 
 				// Use the socket object to store data. Each client gets
 				// their own unique socket object
@@ -80,7 +82,7 @@ module.exports = function(app,io){
 				// Add the client to the room
 				socket.join(data.id);
 
-				if (room.length == 2) {
+				if (room.length == 1) {
 
 					var usernames = [],
 						avatars = [];
