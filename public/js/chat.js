@@ -58,7 +58,7 @@ $(function(){
 	// receive the names and avatars of all people in the chat room
 	socket.on('peopleinchat', function(data){
 
-		if(data.number === 0){
+		
 
 			showMessage("connected");
 
@@ -87,70 +87,35 @@ $(function(){
 				}
 			
 			});
-		}
-
-		else if(data.number === 1) {
-
-			showMessage("personinchat",data);
-
-			loginForm.on('submit', function(e){
-
-				e.preventDefault();
-
-				name = $.trim(hisName.val());
-
-				if(name.length < 1){
-					alert("Please enter a nick name longer than 1 character!");
-					return;
-				}
-
-				if(name == data.user){
-					alert("There already is a \"" + name + "\" in this room!");
-					return;
-				}
-				email = hisEmail.val();
-
-				if(!isValid(email)){
-					alert("Wrong e-mail format!");
-				}
-				else {
-					socket.emit('login', {user: name, avatar: email, id: id});
-				}
-
-			});
-		}
-
-		else {
+		
+		/*else {
 			showMessage("tooManyPeople");
-		}
+		}*/
 
 	});
 
 	// Other useful 
 
 	socket.on('startChat', function(data){
-		console.log(data);
 		if(data.boolean && data.id == id) {
-
 			chats.empty();
 
-			if(name === data.users[0]) {
-
+			if(name === data.users) {
 				showMessage("youStartedChatWithNoMessages",data);
 			}
 			else {
 
 				showMessage("heStartedChatWithNoMessages",data);
 			}
-
 			chatNickname.text(friend);
 		}
 	});
 
 	socket.on('leave',function(data){
 
+		
 		if(data.boolean && id==data.room){
-
+		console.log(data.user);
 			showMessage("somebodyLeft", data);
 			chats.empty();
 		}
