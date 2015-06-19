@@ -11,6 +11,9 @@
     "chat",
     "system"
   ],
+  "engines":{
+      "node": "0.12.2"
+  },
   "author": "Nikolay Anastasov",
   "license": "MIT",
   "dependencies": {
